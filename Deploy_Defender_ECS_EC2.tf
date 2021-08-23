@@ -4,7 +4,7 @@ resource "aws_ecs_task_definition" "prisma" {
 
 [
  {
-  "image": "registry-auth.twistlock.com/tw_dgsfsdfsdfsdfsdfaflpf0tc/twistlock/defender:defender_21_04_439",
+  "image": "registry-auth.twistlock.com/tw_<TOKEN>/twistlock/defender:defender_21_04_439",
   "name": "twistlock_defender",
   "memory": 512,
   "essential": true,
@@ -38,7 +38,7 @@ resource "aws_ecs_task_definition" "prisma" {
     },
     {
       "name": "INSTALL_BUNDLE",
-      "value": "eyJzZWNyZXRzIjp7IwibWljcm9zZWdDb21wYXRpYmxlIjpmYWxzZX0="
+      "value": "<Install_Bundle>"
     },
     {
       "name": "HOST_CUSTOM_COMPLIANCE_ENABLED",
