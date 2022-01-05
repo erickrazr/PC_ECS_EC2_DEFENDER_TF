@@ -72,61 +72,65 @@ resource "aws_ecs_task_definition" "prisma" {
 ]
 EOF
 
-  volume { 
-    name = "data-folder"
+  volume {
+    name      = "data-folder"
     host_path = "/var/lib/twistlock/"
   }
- 
+
 
   volume {
-    name = "docker-sock-folder"
+    name      = "docker-sock-folder"
     host_path = "/var/run"
   }
 
- 
+
 
   volume {
-    name =  "syslog-socket"
-    host_path =  "/dev/log"
+    name      = "syslog-socket"
+    host_path = "/dev/log"
   }
 
- 
+
 
   volume {
-    name = "passwd"
+    name      = "passwd"
     host_path = "/etc/passwd"
   }
 
 
 
   volume {
-    name = "iptables-lock-folder"
+    name      = "iptables-lock-folder"
     host_path = "/run"
   }
 
-  
+
 
   memory                   = "512"
-  family = "PrismaDefender"
+  family                   = "PrismaDefender"
   requires_compatibilities = ["EC2"]
   network_mode             = "host"
   pid_mode                 = "host"
 
-tags = {
+  tags = {
 
-      Name                  = "prismacloud"
-      business_unit         = "INFRA"
-}
+    Name          = "prismacloud"
+    business_unit = "INFRA"
+    yor_trace     = "e10a8128-7803-458f-9c37-d73c1d0fee1b"
+  }
 }
 
- 
+
 
 resource "aws_ecs_service" "prisma_service" {
-  name            = "twistlock" 
-  cluster         = aws_ecs_cluster.main.id
-  task_definition = aws_ecs_task_definition.prisma.arn
+  name                = "twistlock"
+  cluster             = aws_ecs_cluster.main.id
+  task_definition     = aws_ecs_task_definition.prisma.arn
   scheduling_strategy = "DAEMON"
 
-#  iam_role        = aws_iam_role.ecs_service.name
+  #  iam_role        = aws_iam_role.ecs_service.name
+  tags = {
+    yor_trace = "d2915135-7eb9-481c-a4ed-78adb51e672a"
+  }
 }
 
